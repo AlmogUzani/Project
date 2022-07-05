@@ -1,7 +1,14 @@
+.container-fluid {
+
+}
+
+.carousel-inner >div {
+ max-width: 100%;
+ max-height: 100%
+}
 
 header>h3 {
   text-align: center;
-  width: 100%;
   border: 1px solid black;
 }
 
@@ -23,7 +30,7 @@ main {
 #itemDescription{
   display: inline-block;
 }
-#underItemPicture {
+.underItemPicture {
   margin: 0px 10px 10px 10px ;
   text-align: center;
   border: 1px solid black;
@@ -55,6 +62,21 @@ main {
   height: 30px;
 }
 
-footer {
+#description {
   border: 1px solid black;
+}
+.card-header {
+  background-color: white;
+}
+
+#card {
+  text-align: center;
+}
+
+.navbar-toggler-icon {
+  background-color: black;
+}
+.carousel-item {
+  width: 530px;
+  height: 530px;
 }
