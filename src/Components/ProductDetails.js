@@ -4,51 +4,13 @@ import {Container, Row, Col} from 'react-bootstrap'
 function ProductDetails() {
         return (
             <div>
-                <header>
-                    <nav className="navbar navbar-expand-lg bg-light">
-                        <div className="container-fluid">
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon" />
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a style={{fontWeight: 'bold'}} className="nav-link active" aria-current="page" href="#">Home Page</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Log in</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#"><img src="https://static.vecteezy.com/system/resources/previews/004/999/463/original/shopping-cart-icon-illustration-free-vector.jpg" alt="cart" style={{height: '30px', width: '30px'}} />Cart</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                User Info
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Personal settings</a></li>
-                                    <li><a className="dropdown-item" href="#">Purchase history</a></li>
-                                    <li><a className="dropdown-item" href="#">Wishlist</a></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Log out</a></li>
-                                </ul>
-                            </li>
-                            </ul>
-                            <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                            </form>
-                        </div>
-                        </div>
-                    </nav>
-                </header>
                 <main>
                     <Container>
                         <Row>
                             <Col id="card" sm={5}>
                                 <div className="card-header"><h5>Item description</h5></div>
                                 <div className="card text-bg-light mb-3">
-                                <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="true">
+                                <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="false">
                                     <div className="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={0} className="active" aria-current="true" aria-label="Slide 1" />
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={1} aria-label="Slide 2" />
@@ -125,7 +87,7 @@ function ProductDetails() {
                                 </div>
                             </Col>
                         </Row>
-                        <Row id="description">
+                        {/* <Row id="description">
                             <Col>
                                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                                     <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
@@ -146,11 +108,9 @@ function ProductDetails() {
                                     Some quick example text to build on the card title and make up the bulk of the card's content.</div>
                                 </div>
                             </Col>
-                        </Row>
+                        </Row> */}
                     </Container>
                 </main>
-                <footer>
-                </footer>
             </div>
 )}
 
