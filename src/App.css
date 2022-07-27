@@ -17,9 +17,8 @@ main {
   display: flex;
 }
 
-.img {
-  width: 300px;
-  height: 300px;
+img {
+  border-radius: 10px;  
 }
 
 #itemPicture {
@@ -72,15 +71,28 @@ main {
 
 #card {
   text-align: center;
+  width: 40%;
+  border-radius: 10px;
+}
+
+#fullCard {
+  border: none;
+}
+
+.carousel-control-prev-icon {
+  background-color: #000;
+  border-radius: 10px;
+}
+
+.carousel-control-next-icon {
+  background-color: #000;
+  border-radius: 10px;
 }
 
 .navbar-toggler-icon {
   background-color: black;
 }
-.carousel-item {
-  width: 530px;
-  height: 530px;
-}
+
 .loginForm {
   align-items: center;
   text-align: center;
