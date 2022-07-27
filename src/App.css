@@ -1,4 +1,8 @@
 
+.container-fluid {
+  margin-top: 0px;
+}
+
 .carousel-inner >div {
  max-width: 100%;
  max-height: 100%
@@ -19,6 +23,10 @@ main {
 
 img {
   border-radius: 10px;  
+}
+
+#homepage {
+  text-align: center;
 }
 
 #itemPicture {
@@ -98,4 +106,25 @@ img {
   text-align: center;
   font-weight: bold;
   width: 40%;
+}
+
+.category {
+  text-align: center;
+  border: 1px solid black;
+  width: 350px;
+  height: 300px;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.categoryImg {
+  width: 250px;
+  height: 200px;
+}
+
+#categoriesContainer {
+  margin-bottom: 80px;
+
 }
