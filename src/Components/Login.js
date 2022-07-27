@@ -1,9 +1,12 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 function Login() {
   return (
     <div className='loginForm'>
+        <Navbar></Navbar>
         <Form>
             <span>Login</span>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -17,6 +20,7 @@ function Login() {
                 Log in
             </Button>
         </Form>
+        <Footer></Footer>
     </div>
   );
 }
