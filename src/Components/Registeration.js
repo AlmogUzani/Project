@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import {Form, Button, Row, Col, InputGroup, ButtonGroup, Nav} from 'react-bootstrap'
-import {FaUserAlt, FaVoicemail, FaBuilding, FaPlaystation, FaMarsDouble} from 'react-icons/fa'
+import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap'
+import {FaUserAlt, FaVoicemail, FaUserCircle, FaUnlockAlt} from 'react-icons/fa'
 import Validation from './validation'
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -126,7 +126,7 @@ function Registration() {
             {<Form.Group as={Col} md="5" controlId="validationCustomUsername">
               <Form.Label>Username</Form.Label>
               <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend"><FaUserAlt /></InputGroup.Text>
+                <InputGroup.Text id="inputGroupPrepend"><FaUserCircle /></InputGroup.Text>
                 <Form.Control
                   name="username"
                   defaultValue={studentForm.username.value}
@@ -142,7 +142,7 @@ function Registration() {
                 ))}
               </InputGroup>
             </Form.Group>}
-            <Form.Group as={Col} md="5" controlId="validationCustomUsername">
+            <Form.Group as={Col} md="5" controlId="validationCustomEmail">
               <Form.Label>Email</Form.Label>
               <InputGroup hasValidation>
                 <InputGroup.Text id="inputGroupPrepend"><FaVoicemail /></InputGroup.Text>
@@ -163,10 +163,10 @@ function Registration() {
             </Form.Group>
           </Row>
           <Row className="mb-4">
-          {<Form.Group as={Col} md="5" controlId="validationCustomUsername">
+          {<Form.Group as={Col} md="5" controlId="validationCustomPassword">
               <Form.Label>Password</Form.Label>
               <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend"><FaUserAlt /></InputGroup.Text>
+                <InputGroup.Text id="inputGroupPrepend"><FaUnlockAlt /></InputGroup.Text>
                 <Form.Control
                   name="password"
                   defaultValue={studentForm.password.value}
@@ -182,10 +182,10 @@ function Registration() {
                 ))}
               </InputGroup>
             </Form.Group>}
-            <Form.Group as={Col} md="5" controlId="validationCustomUsername">
+            <Form.Group as={Col} md="5" controlId="validationCustomConfirmPassword">
               <Form.Label>Confirm password</Form.Label>
               <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend"><FaVoicemail /></InputGroup.Text>
+                <InputGroup.Text id="inputGroupPrepend"><FaUnlockAlt /></InputGroup.Text>
                 <Form.Control
                   name="confirmPassword"
                   defaultValue={studentForm.confirmPassword.value}
