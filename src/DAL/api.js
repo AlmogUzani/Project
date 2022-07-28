@@ -1,6 +1,6 @@
 
 const categories = [
-    {id:1, name:'Vegtables', image:'/../images/categories/vegtables.jpg'}, {id:2, name:'Fruits', image:'/../images/categories/fruits.jpg'}, {id:2, name:'Milk', image:'/../images/categories/milk.jpg'}, {id:2, name:'Meat', image:'/../images/categories/meat.jpg'},
+    {id:1, name:'Vegtables', image:'/../images/categories/vegtables.jpg'}, {id:2, name:'Fruits', image:'/../images/categories/fruits.jpg'}, {id:3, name:'Milk', image:'/../images/categories/milk.jpg'}, {id:4, name:'Meat', image:'/../images/categories/meat.jpg'},
     {id:5, name:'Beverages', image:'/../images/categories/beverages.jpg'}, {id:6, name:'Bakery', image:'/../images/categories/bakery.jpg'}, {id:7, name:'Snacks', image:'/../images/categories/snacks.jpg'}, {id:8, name:'Onetime', image:'/../images/categories/onetime.jpg'},
 ]
 const products = [
