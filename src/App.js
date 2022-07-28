@@ -12,8 +12,8 @@ function App() {
   return (
     <div className='container-fluid'>
       <Homepage></Homepage>
-      <Categories></Categories>
-      <ProductDetails></ProductDetails>
+      <Categories id={1}></Categories>
+      <ProductDetails id={1}></ProductDetails>
       <Login></Login>
       <Registration></Registration>
 

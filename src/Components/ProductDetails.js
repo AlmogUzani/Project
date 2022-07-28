@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 
-function ProductDetails() {
+function ProductDetails(props) {
         return (
             <div>
                 <Navbar></Navbar>

@@ -1,70 +1,45 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import {Card, Button} from 'react-bootstrap';
+import {getProductsByCategory} from '../DAL/api'
+import { getCategoriesById } from '../DAL/api'; 
+import { useEffect, useState } from 'react';
 
 
-function Categories() {
+function Categories(props) {
+    const [products, setProducts] = useState([])
+    const [currentCategory, setCurrentCategory] = useState({})
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function getData(id) {
+            setProducts(await getProductsByCategory(id))
+            setCurrentCategory(await getCategoriesById(id))
+            setLoading(false)
+        }
+        getData(props.id)
+    },[])
         return (
             <div>
                 <Navbar></Navbar>
-                <h1>Vegtables</h1>
+                {loading? 'Loading' :
                 <div style={{display:'flex'}}>
-                    <Card style={{ width: 'fit-content' }}>
-                    <Card.Img variant="top" src="/../images/itemsByCategories/vegtables/cucumber1.jpg" alt='cucumber' className='productCategoryImg' />
+                <h1>{currentCategory.name}</h1>
+                    {
+                        products.map(product =>
+                    <Card key={product.id} style={{ width: 'fit-content' }}>
+                    <Card.Img variant="top" src={product.image1} alt={product.name} className='productCategoryImg' />
                     <Card.Body>
-                        <Card.Title>Cucumber</Card.Title>
+                        <Card.Title>{product.name}</Card.Title>
                         <Card.Text>
-                            Price: 2₪
+                            Price: {product.unit_price}
                         </Card.Text>
                         <input type='number' className='quantityProduct' min='0'></input>
                         <Button variant="primary">Add to cart</Button>
                     </Card.Body>
                     </Card>
-                    <Card style={{ width:'fit-content'}}>
-                    <Card.Img variant="top" src="/../images/itemsByCategories/vegtables/tomato1.jpg" alt='tomato' className='productCategoryImg' />
-                    <Card.Body>
-                        <Card.Title>Tomato</Card.Title>
-                        <Card.Text>
-                            Price: 2₪
-                        </Card.Text>
-                        <input type='number' className='quantityProduct' min='0'></input>
-                        <Button variant="primary">Add to cart</Button>
-                    </Card.Body>
-                    </Card>
-                    <Card style={{ width: 'fit-content' }}>
-                    <Card.Img variant="top" src="/../images/itemsByCategories/vegtables/carrot1.jpg" alt='carrot' className='productCategoryImg' />
-                    <Card.Body>
-                        <Card.Title>Carrot</Card.Title>
-                        <Card.Text>
-                            Price: 5₪
-                        </Card.Text>
-                        <input type='number' className='quantityProduct' min='0'></input>
-                        <Button variant="primary">Add to cart</Button>
-                    </Card.Body>
-                    </Card>
-                    {/* <Card style={{ width: 'fit-content' }}>
-                    <Card.Img variant="top" src="/../images/itemsByCategories/fruits/apple1.jpg" alt='apple' className='productCategoryImg' />
-                    <Card.Body>
-                        <Card.Title>Apple</Card.Title>
-                        <Card.Text>
-                            Price: 7₪
-                        </Card.Text>
-                        <input type='number' className='quantityProduct' min='0'></input>
-                        <Button variant="primary">Add to cart</Button>
-                    </Card.Body>
-                    </Card>
-                    <Card style={{ width: 'fit-content' }}>
-                    <Card.Img variant="top" src="/../images/itemsByCategories/fruits/pear1.jpg" alt='pear' className='productCategoryImg' />
-                    <Card.Body>
-                        <Card.Title>Pear</Card.Title>
-                        <Card.Text>
-                            Price: 9₪
-                        </Card.Text>
-                        <input type='number' className='quantityProduct' min='0'></input>
-                        <Button variant="primary">Add to cart</Button>
-                    </Card.Body>
-                    </Card> */}
-                </div>
+                    )}
+                </div>}
                 <Footer></Footer>
             </div>
 )}
