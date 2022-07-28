@@ -53,6 +53,34 @@ const getCategories = () => {
         setTimeout(() => resolve(categories), 1000);
     })
 }
+const getProducts = () => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(products), 1000);
+    })
+}
+const getUsers = () => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(users), 1000);
+    })
+}
+const getOrders = () => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(orders), 1000);
+    })
+}
+const getOrderDetails = () => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(order_details), 1000);
+    })
+}
 
 //component
 // await getCategories()
