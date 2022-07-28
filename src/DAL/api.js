@@ -46,35 +46,56 @@ const order_details = [
 ]
 
 
-const getCategories = () => {
+export const getCategories = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
         setTimeout(() => resolve(categories), 1000);
     })
 }
-const getProducts = () => {
+export const getCategoriesById = (id) => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(categories.find(category => category.id === id)), 1000);
+    })
+}
+export const getProducts = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
         setTimeout(() => resolve(products), 1000);
     })
 }
-const getUsers = () => {
+export const getProductById = (id) => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(products.find(product => product.id === id)), 1000);
+    })
+}
+export const getProductsByCategory = (categoryId) => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(products.filter(product=>product.category_id===categoryId)), 1000);
+    })
+}
+export const getUsers = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
         setTimeout(() => resolve(users), 1000);
     })
 }
-const getOrders = () => {
+export const getOrders = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
         setTimeout(() => resolve(orders), 1000);
     })
 }
-const getOrderDetails = () => {
+export const getOrderDetails = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
