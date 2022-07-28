@@ -127,3 +127,12 @@ img {
   margin-bottom: 80px;
 
 }
+
+.productCategoryImg {
+  width: 200px;
+  height: 150px;
+}
+
+.quantityProduct {
+  width: 60px
+}
