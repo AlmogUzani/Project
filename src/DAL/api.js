@@ -21,10 +21,9 @@ const users = [
     {id:3, name:'Moshe Bot', age:18, username:'moshebot', email:'moshe@gmail.com', registerDate:'20-06-22', password:'123456m'},
 ]
 const orders = [
-    {id:1, user_id:1, order_date:'23-06-22', address:'anywhere1', phone_number:'+972506565231'},
-    {id:2, user_id:2, order_date:'24-06-22', address:'anywhere2', phone_number:'+972506565232'},
-    {id:3, user_id:3, order_date:'25-06-22', address:'anywhere3', phone_number:'+972506565233'},
-    {id:4, user_id:1, order_date:'28-06-22', address:'anywhere1', phone_number:'+972506565231'},
+    {id:1, user_id:1, order_date:'', address:'anywhere1', phone_number:'+972506565231'},
+    {id:2, user_id:2, order_date:'', address:'anywhere2', phone_number:'+972506565232'},
+    {id:3, user_id:3, order_date:'', address:'anywhere3', phone_number:'+972506565233'},
 ]
 const order_details = [
     {order_id:1, product_id:1, quantity:2, unit_price:2, discount:0},
@@ -40,9 +39,6 @@ const order_details = [
     {order_id:3, product_id:2, quantity:4, unit_price:2, discount:0},
     {order_id:3, product_id:3, quantity:2, unit_price:5, discount:0},
     {order_id:3, product_id:4, quantity:2, unit_price:7, discount:0},
-
-    {order_id:4, product_id:4, quantity:2, unit_price:7, discount:0},
-    {order_id:4, product_id:5, quantity:2, unit_price:9, discount:0},
 ]
 
 
@@ -64,7 +60,7 @@ export const getProducts = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(products), 1000);
+        setTimeout(() => resolve(products), 0);
     })
 }
 export const getProductById = (id) => {
@@ -78,7 +74,7 @@ export const getProductsByCategory = (categoryId) => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(products.filter(product=>product.category_id===categoryId)), 1000);
+        setTimeout(() => resolve(products.filter(product => product.category_id === categoryId)), 1000);
     })
 }
 export const getUsers = () => {
@@ -95,11 +91,25 @@ export const getOrders = () => {
         setTimeout(() => resolve(orders), 1000);
     })
 }
+export const getOrdersById = (userId) => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(orders.filter(order => order.user_id === userId)), 0);
+    })
+}
 export const getOrderDetails = () => {
     //fetch categories from server
     //return Promise.resolve(categories)
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(order_details), 1000);
+        setTimeout(() => resolve(order_details), 0);
+    })
+}
+export const getOrderDetailsByOrderId = (orderId) => {
+    //fetch categories from server
+    //return Promise.resolve(categories)
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(order_details.filter(order => order.order_id === orderId)), 0);
     })
 }
 
