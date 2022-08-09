@@ -1,26 +1,32 @@
 import { Container, Row, Col } from "react-bootstrap";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { useEffect, useState } from "react";
-import { getProductById } from "../DAL/api";
+import { useEffect, useState, useCallback } from "react";
+import { getProductById as getProductsById } from "../DAL/api";
 import { getCategoriesById } from "../DAL/api";
+import { useParams } from "react-router-dom";
 
-function ProductDetails(props) {
+function ProductDetails() {
+  const param = useParams();
   const [product, setProduct] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
   const [loading, setLoading] = useState(true);
 
+  const updateView = useCallback(async (id) => {
+    const [productData, categoryData] = await Promise.all([
+      getProductsById(id),
+      getCategoriesById(id),
+    ]);
+
+    setProduct(productData);
+    setCurrentCategory(categoryData);
+    setLoading(false);
+  });
+
   useEffect(() => {
-    async function getData(id) {
-      setProduct(await getProductById(id));
-      setCurrentCategory(await getCategoriesById(id));
-      setLoading(false);
-    }
-    getData(props.id);
+    updateView(parseInt(param.id));
   }, []);
+
   return (
     <div>
-      <Navbar></Navbar>
       {loading ? (
         "Loading"
       ) : (
@@ -140,7 +146,6 @@ function ProductDetails(props) {
           </Container>
         </main>
       )}
-      <Footer></Footer>
     </div>
   );
 }
