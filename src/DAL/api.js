@@ -233,5 +233,13 @@ export const getOrderDetailsByOrderId = (orderId) => {
     .then((data) => data);
 };
 
+export const getCartByUserId = (userId) => {
+  //fetch categories from server
+  //return Promise.resolve(categories)
+  return fetch(`http://localhost:3100/api/cart/${userId}`)
+    .then((response) => response.json())
+    .then((data) => data);
+};
+
 //component
 // await getCategories()

@@ -1,8 +1,7 @@
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import { Container, Row, Col } from "react-bootstrap";
 import { getCategories } from "../DAL/api";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Homepage() {
   const [categories, setCategories] = useState([]);
@@ -17,29 +16,27 @@ function Homepage() {
   }, []);
   return (
     <div id="homepage">
-      <Navbar></Navbar>
       {loading ? (
         "Loading"
       ) : (
         <Container id="categoriesContainer">
-          <Row>
-            <h1>Categories</h1>
-          </Row>
-          <Row className="categoryRow">
+          <h1>Categories</h1>
+          <div className="row">
             {categories.map((category) => (
-              <Col key={category.id} className="category">
-                <h3>{category.categoryName}</h3>
-                <img
-                  src={category.image}
-                  className="categoryImg"
-                  alt={category.categoryName}
-                ></img>
-              </Col>
+              <div className="column">
+                <Link to={`/category/${category.categoryID}`}>
+                  <h3>{category.categoryName}</h3>
+                  <img
+                    src={category.image}
+                    className="categoryImg"
+                    alt={category.categoryName}
+                  ></img>
+                </Link>
+              </div>
             ))}
-          </Row>
+          </div>
         </Container>
       )}
-      <Footer></Footer>
     </div>
   );
 }

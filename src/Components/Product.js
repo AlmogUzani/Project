@@ -1,0 +1,27 @@
+import { Card, Button } from "react-bootstrap";
+
+function Product(params) {
+  const { product, hideButton } = params;
+  return (
+    <Card style={{ width: "fit-content" }}>
+      <Card.Img
+        variant="top"
+        src={product.image1}
+        alt={product.name}
+        className="productCategoryImg"
+      />
+      <Card.Body>
+        <Card.Title>{product.name}</Card.Title>
+        <Card.Text>Price: {product.unitPrice}$</Card.Text>
+        <input
+          type="number"
+          className="quantityProduct"
+          defaultValue={product.quantity}
+        ></input>
+        {!hideButton && <Button variant="primary">Delete</Button>}
+      </Card.Body>
+    </Card>
+  );
+}
+
+export default Product;

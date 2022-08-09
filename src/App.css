@@ -110,8 +110,6 @@ img {
 .category {
   text-align: center;
   border: 1px solid black;
-  width: 350px;
-  height: 300px;
 }
 
 .category:hover {
@@ -125,7 +123,6 @@ img {
 
 #categoriesContainer {
   margin-bottom: 80px;
-
 }
 
 .productCategoryImg {
@@ -135,4 +132,27 @@ img {
 
 .quantityProduct {
   width: 60px
+}
+
+.row {
+  display: flex;
+}
+.column {
+  width: calc(100% / 8);
+  padding: 5px;
+}
+.column a {
+  height: 10em;
+  display: block;
+  border: 1px solid;
+}
+@media screen and (max-width: 992px) {
+  .column {
+    width: calc(100% / 4);
+  }
+}
+@media screen and (max-width: 768px) {
+  .column {
+    width: calc(100% / 2);
+  }
 }
