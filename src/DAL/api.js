@@ -1,4 +1,4 @@
-const categories = [
+/* const categories = [
   { id: 1, name: "Vegtables", image: "/../images/categories/vegtables.jpg" },
   { id: 2, name: "Fruits", image: "/../images/categories/fruits.jpg" },
   { id: 3, name: "Milk", image: "/../images/categories/milk.jpg" },
@@ -151,17 +151,17 @@ const order_details = [
   { order_id: 3, product_id: 2, quantity: 4, unit_price: 2, discount: 0 },
   { order_id: 3, product_id: 3, quantity: 2, unit_price: 5, discount: 0 },
   { order_id: 3, product_id: 4, quantity: 2, unit_price: 7, discount: 0 },
-];
+]; */
 
 export const getCategories = () => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/categories`)
+  return fetch(`http://localhost:4000/api/categories`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getCategoriesById = (id) => {
-  return fetch(`http://localhost:3100/api/categories/${id}`)
+  return fetch(`http://localhost:4000/api/categories/${id}`)
     .then((response) => response.json())
     .then((data) => data);
   //fetch categories from server
@@ -170,21 +170,35 @@ export const getCategoriesById = (id) => {
 export const getProducts = () => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/products`)
+  return fetch(`http://localhost:4000/api/products`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getProductById = (id) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/products/${id}`)
+  return fetch(`http://localhost:4000/api/products/${id}`)
+    .then((response) => response.json())
+    .then((data) => data);
+};
+export const getProductsById = (ids) => {
+  //fetch categories from server
+  //return Promise.resolve(categories)
+  return fetch(`http://localhost:4000/api/products/${ids}`)
+    .then((response) => response.json())
+    .then((data) => data);
+};
+export const getBestSellers = () => {
+  //fetch categories from server
+  //return Promise.resolve(categories)
+  return fetch(`http://localhost:4000/api/orderdetails/bestSellers`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getProductsByCategory = (categoryId) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch("http://localhost:3100/api/products")
+  return fetch("http://localhost:4000/api/products")
     .then((response) => response.json())
     .then((data) =>
       data.filter((product) => product.categoryID === categoryId)
@@ -193,53 +207,76 @@ export const getProductsByCategory = (categoryId) => {
 export const getUsers = () => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/users`)
+  return fetch(`http://localhost:4000/api/users`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getUsersById = (id) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/users/${id}`)
+  return fetch(`http://localhost:4000/api/users/${id}`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getOrders = () => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/orders`)
+  return fetch(`http://localhost:4000/api/orders`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getOrdersById = (userId) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/orders/${userId}`)
+  return fetch(`http://localhost:4000/api/orders/${userId}`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getOrderDetails = () => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/orderdetails`)
+  return fetch(`http://localhost:4000/api/orderdetails`)
     .then((response) => response.json())
     .then((data) => data);
 };
 export const getOrderDetailsByOrderId = (orderId) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/orderdetails/${orderId}`)
+  return fetch(`http://localhost:4000/api/orderdetails/${orderId}`)
     .then((response) => response.json())
     .then((data) => data);
 };
 
-export const getCartByUserId = (userId) => {
+export const getCartByUserCookie = (json) => {
   //fetch categories from server
   //return Promise.resolve(categories)
-  return fetch(`http://localhost:3100/api/cart/${userId}`)
+  return fetch(`http://localhost:4000/api/users/cart`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      encryptedUserIdJson: json,
+    }),
+  })
     .then((response) => response.json())
     .then((data) => data);
 };
 
-//component
-// await getCategories()
+export const checkLogin = (username, password) => {
+  return fetch(`http://localhost:4000/api/users/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.err) {
+        return data;
+      } else {
+        document.cookie = `id=${JSON.stringify(data)}`;
+      }
+    });
+};
+
+export const Logout = () => {
+  document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
+};

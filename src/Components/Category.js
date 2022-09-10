@@ -10,7 +10,7 @@ function Category() {
   const [currentCategory, setCurrentCategory] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const getDataCallback = useCallback(getData);
+  const getDataCallback = useCallback(getData, []);
 
   async function getData(id) {
     setProducts(await getProductsByCategory(id));
@@ -20,7 +20,9 @@ function Category() {
 
   useEffect(() => {
     getDataCallback(parseInt(params.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(products);
 
   return (
     <div>
@@ -38,13 +40,17 @@ function Category() {
                 className="productCategoryImg"
               />
               <Card.Body>
-                <Link to={`/products/${product.productID}`}>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>Price: {product.unit_price}</Card.Text>
-                </Link>
+                <Card.Title>{product.name}</Card.Title>
+                <Card.Text>
+                  Price: {product.price}$<br />
+                  <Link to={`/products/${product.productID}`}>
+                    More details
+                  </Link>
+                </Card.Text>
                 <input
                   type="number"
                   className="quantityProduct"
+                  placeholder="0"
                   min="0"
                 ></input>
                 <Button variant="primary">Add to cart</Button>
