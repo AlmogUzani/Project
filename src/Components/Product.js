@@ -6,12 +6,15 @@ function Product(params) {
     <Card style={{ width: "fit-content" }}>
       <Card.Img
         variant="top"
-        src={product.image1}
+        src={product.image}
         alt={product.name}
         className="productCategoryImg"
       />
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
+        <Card.Title>
+          {product.name}
+          <p>{product.quantity}</p>
+        </Card.Title>
         <Card.Text>Price: {product.unitPrice}$</Card.Text>
         <input
           type="number"

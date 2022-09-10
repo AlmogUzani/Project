@@ -25,6 +25,11 @@ img {
   border-radius: 10px;  
 }
 
+#productImg {
+  width: 300px;
+  height: 300px;
+}
+
 #homepage {
   text-align: center;
 }
@@ -117,8 +122,17 @@ img {
 }
 
 .categoryImg {
-  width: 250px;
-  height: 200px;
+  width: 120px;
+  height: 100px;
+}
+
+#bestSeller {
+  align-items: center;
+}
+
+#bestSellerImg {
+  width: 100px;
+  height: 80px;
 }
 
 #categoriesContainer {

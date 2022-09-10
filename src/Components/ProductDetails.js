@@ -7,24 +7,25 @@ import { useParams } from "react-router-dom";
 function ProductDetails() {
   const param = useParams();
   const [product, setProduct] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState({});
+  const [currentCategory, setCurrentCategory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const updateView = useCallback(async (id) => {
-    const [productData, categoryData] = await Promise.all([
-      getProductsById(id),
-      getCategoriesById(id),
-    ]);
+  const getDataCallback = useCallback(getData, []);
 
-    setProduct(productData);
-    setCurrentCategory(categoryData);
+  async function getData(id) {
+    const currProduct = await getProductsById(id);
+    setProduct(currProduct);
+    setCurrentCategory(await getCategoriesById(currProduct[0].categoryID));
     setLoading(false);
-  });
+  }
 
   useEffect(() => {
-    updateView(parseInt(param.id));
+    getDataCallback(parseInt(param.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log("product", product);
+  console.log("category", currentCategory);
   return (
     <div>
       {loading ? (
@@ -43,6 +44,7 @@ function ProductDetails() {
                     <div className="carousel-inner">
                       <div className="carousel-item active">
                         <img
+                          id="productImg"
                           src={product[0].image1}
                           className="d-block w-100"
                           alt={product[0].name}
@@ -50,6 +52,7 @@ function ProductDetails() {
                       </div>
                       <div className="carousel-item">
                         <img
+                          id="productImg"
                           src={product[0].image2}
                           className="d-block w-100"
                           alt={product[0].name}
@@ -57,6 +60,7 @@ function ProductDetails() {
                       </div>
                       <div className="carousel-item">
                         <img
+                          id="productImg"
                           src={product[0].image3}
                           className="d-block w-100"
                           alt={product[0].name}
