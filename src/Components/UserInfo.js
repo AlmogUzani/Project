@@ -1,22 +1,21 @@
 import { Card, Container, Button } from "react-bootstrap";
-import { getUsersById } from "../DAL/api";
+import { getUserIDByUserCookie } from "../DAL/api";
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { getCookie } from "./Cart";
 
 function UserInfo() {
-  const params = useParams();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getDataCallback = useCallback(getData, []);
 
-  async function getData(id) {
-    setUser(await getUsersById(id));
+  async function getData() {
+    setUser(await getUserIDByUserCookie(getCookie("id")));
     setLoading(false);
   }
 
   useEffect(() => {
-    getDataCallback(parseInt(params.id));
+    getDataCallback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -36,7 +35,7 @@ function UserInfo() {
                 Email: {user[0].email}
                 <br />
               </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+              <Button variant="primary">Edit</Button>
             </Card.Body>
           </Card>
         </Container>

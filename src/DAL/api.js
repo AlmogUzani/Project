@@ -261,6 +261,48 @@ export const getCartByUserCookie = (json) => {
     .then((data) => data);
 };
 
+export const getUserIDByUserCookie = (json) => {
+  //fetch categories from server
+  //return Promise.resolve(categories)
+  return fetch(`http://localhost:4000/api/users/getUser`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      encryptedUserIdJson: json,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+};
+
+export const updateCart = (userID, productID, amount, ifPos) => {
+  return fetch(`http://localhost:4000/api/users/updateCart`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userID: userID,
+      productID: productID,
+      amount: amount,
+      ifPos: ifPos,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+};
+export const addTOCart = (userID, product, amount) => {
+  return fetch(`http://localhost:4000/api/users/addToCart`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userID: userID,
+      product: product,
+      amount: amount,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+};
+
 export const checkLogin = (username, password) => {
   return fetch(`http://localhost:4000/api/users/login`, {
     method: "POST",

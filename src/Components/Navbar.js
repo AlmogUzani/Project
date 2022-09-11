@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Logout } from "../DAL/api";
-//let loggedIn = false;
+import { useEffect, useState, useCallback } from "react";
+import { getCategories } from "../DAL/api";
+
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -23,18 +25,23 @@ function getCookie(cname) {
   return "";
 }
 
-function checkCookie() {
-  let user = getCookie("id");
-  if (user != "") {
-    alert("Welcome again " + user);
-  } else {
-    user = prompt("Please enter your name:", "");
-    if (user != "" && user != null) {
-      setCookie("username", user, 365);
-    }
-  }
-}
 function Navbar() {
+  const [categories, setCategories] = useState([]);
+
+  const getDataCallback = useCallback(getData, []);
+
+  async function getData(id) {
+    setCategories(await getCategories());
+  }
+
+  useEffect(() => {
+    getDataCallback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function createURL(category) {
+    return "http://localhost:3000/category/" + category.categoryID;
+  }
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -56,6 +63,25 @@ function Navbar() {
                 <Link to="/">
                   <h3>MamiMevi</h3>
                 </Link>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="thing"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Categories
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {categories.map((category) => (
+                    <li key={category.categoryID}>
+                      <a href={createURL(category)}>{category.categoryName}</a>
+                    </li>
+                  ))}
+                </ul>
               </li>
               <li>&nbsp;&nbsp;</li>
               {getCookie("id") === "" && (

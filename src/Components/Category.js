@@ -1,11 +1,18 @@
 import { Card, Button } from "react-bootstrap";
-import { getProductsByCategory } from "../DAL/api";
-import { getCategoriesById } from "../DAL/api";
+import {
+  getProductsByCategory,
+  getCategoriesById,
+  getCartByUserCookie,
+  updateCart,
+  addTOCart,
+} from "../DAL/api";
 import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getCookie } from "./Cart";
 
 function Category() {
   const params = useParams();
+  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
   const [loading, setLoading] = useState(true);
@@ -13,6 +20,7 @@ function Category() {
   const getDataCallback = useCallback(getData, []);
 
   async function getData(id) {
+    setCart(await getCartByUserCookie(getCookie("id")));
     setProducts(await getProductsByCategory(id));
     setCurrentCategory(await getCategoriesById(id));
     setLoading(false);
@@ -22,8 +30,29 @@ function Category() {
     getDataCallback(parseInt(params.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(products);
 
+  const userID = getCookie("id");
+
+  const increaseAmount = async (product) => {
+    let element = Number(document.getElementById(product.productID).value);
+    element += 1;
+    document.getElementById(product.productID).value = element;
+  };
+
+  const decreaseAmount = async (product) => {
+    let element = Number(document.getElementById(product.productID).value);
+    element -= 1;
+    document.getElementById(product.productID).value = element;
+  };
+
+  const addToCart = async (product) => {
+    await addTOCart(
+      userID,
+      product,
+      Number(document.getElementById(product.productID).value)
+    );
+    setCart(await getCartByUserCookie(userID));
+  };
   return (
     <div>
       {loading ? (
@@ -47,13 +76,31 @@ function Category() {
                     More details
                   </Link>
                 </Card.Text>
+                <Button
+                  variant="success"
+                  className="changeAmount"
+                  onClick={() => {
+                    decreaseAmount(product);
+                  }}
+                >
+                  -
+                </Button>
                 <input
+                  id={product.productID}
                   type="number"
                   className="quantityProduct"
-                  placeholder="0"
-                  min="0"
+                  readOnly="readonly"
                 ></input>
-                <Button variant="primary">Add to cart</Button>
+                <Button
+                  variant="success"
+                  className="changeAmount"
+                  onClick={() => {
+                    increaseAmount(product);
+                  }}
+                >
+                  +
+                </Button>
+                <Button onClick={() => addToCart(product)}>Add</Button>
               </Card.Body>
             </Card>
           ))}

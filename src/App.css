@@ -17,6 +17,14 @@ header>h3 {
   border: 1px solid black;
 }
 
+/* body {
+  background-image: url('https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1000/https://welpmagazine.com/wp-content/uploads/2020/10/supermarket.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background: ( 0.3)!important
+} */
+
 main {
   display: flex;
 }
@@ -145,7 +153,27 @@ img {
 }
 
 .quantityProduct {
-  width: 60px
+  width: 50px
+}
+
+.homePageTitle {
+  background-image:url('https://www.caverion.com/globalassets/smart-city/supermarket_shopping_1140x560.jpg?preset=w-full');
+  font-size: xx-large;
+  font-weight: bolder;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+.changeAmount {
+  border-radius: 50px;
+  font-size: 10px;
+}
+
+.textTitle {
+text-shadow: 1.6px 1.6px white;
+text-align: center;
+font-weight: bolder;
 }
 
 .row {

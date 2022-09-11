@@ -24,8 +24,6 @@ function ProductDetails() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("product", product);
-  console.log("category", currentCategory);
   return (
     <div>
       {loading ? (
@@ -112,37 +110,7 @@ function ProductDetails() {
                         </ul>
                       </li>
                     </ul>
-                    <div className="card-body">
-                      <p style={{ marginTop: "13px" }}>
-                        <button
-                          type="button"
-                          className="btn btn-primary btn-sm"
-                        >
-                          +
-                        </button>
-                        <span
-                          style={{ alignItems: "center", margin: "0 10px" }}
-                        >
-                          X
-                        </span>
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm"
-                          style={{ marginRight: "10px" }}
-                        >
-                          -
-                        </button>
-                        Quantity: ({product[0].unitInStock} pieces/Kg in stock)
-                      </p>
-                      <button type="button" className="btn btn-secondary">
-                        Add to cart{" "}
-                        <img
-                          src="https://static.vecteezy.com/system/resources/previews/004/999/463/original/shopping-cart-icon-illustration-free-vector.jpg"
-                          alt="cart"
-                          style={{ height: "50px", width: "50px" }}
-                        />
-                      </button>
-                    </div>
+                    <div className="card-body"></div>
                   </div>
                 </div>
               </Col>

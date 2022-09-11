@@ -27,6 +27,21 @@ function Homepage() {
         "Loading"
       ) : (
         <div>
+          <h2 className="homePageTitle">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p className="textTitle">Welcome to MamiMevi !</p>
+            <br />
+            <p className="textTitle">Buy online the products you need,</p>
+            <br />
+            <p className="textTitle">FAST & EASY & SAFE</p>
+            <br />
+            <br />
+          </h2>
           <Container id="categoriesContainer">
             <h1>Categories</h1>
             <div className="row">

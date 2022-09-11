@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import { getCartByUserCookie } from "../DAL/api.js";
-import { Card, Button } from "react-bootstrap";
+import { getCartByUserCookie, updateCart } from "../DAL/api.js";
+import { Card, Button, Stack, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-/* import * as crypto from "crypto"; */
 
-function getCookie(cname) {
+export function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(";");
@@ -19,24 +18,11 @@ function getCookie(cname) {
   }
   return "";
 }
-/* const decrypt = (hash) => {
-  const decipher = crypto.createDecipheriv(
-    algorithm,
-    secretKey,
-    Buffer.from(hash.encrypted.iv, "hex")
-  );
-
-  const decrpyted = Buffer.concat([
-    decipher.update(Buffer.from(hash.encrypted.content, "hex")),
-    decipher.final(),
-  ]);
-
-  return decrpyted.toString();
-}; */
 
 function Cart() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lgShow, setLgShow] = useState(false);
 
   const getDataCallback = useCallback(getData, []);
 
@@ -50,6 +36,32 @@ function Cart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const increaseAmount = async (product) => {
+    const userID = getCookie("id");
+    await updateCart(userID, product.productID, product.quantity + 1, true);
+    setCart(await getCartByUserCookie(getCookie("id")));
+  };
+
+  const decreaseAmount = async (product) => {
+    const userID = getCookie("id");
+    await updateCart(userID, product.productID, product.quantity - 1, false);
+    setCart(await getCartByUserCookie(getCookie("id")));
+  };
+
+  const deleteFromCart = async (product) => {
+    const userID = getCookie("id");
+    await updateCart(userID, product.productID, (product.quantity = 0), false);
+    setCart(await getCartByUserCookie(getCookie("id")));
+  };
+
+  const total = () => {
+    let total = 0;
+    for (let prod of cart) {
+      total += prod.quantity * prod.unitPrice;
+    }
+    return total;
+  };
+
   return (
     <div>
       {loading ? (
@@ -57,29 +69,91 @@ function Cart() {
       ) : (
         <div>
           <h1>Cart</h1>
-          {cart.map((product) => (
-            <Card key={product.productID} style={{ width: "fit-content" }}>
-              <Card.Img
-                variant="top"
-                src={product.image1}
-                alt={product.name}
-                className="productCategoryImg"
-              />
-              <Card.Body>
-                <Link to={`/products/${product.productID}`}>
-                  <Card.Title>{product.name}</Card.Title>
-                </Link>
-                <Card.Text>Price: {product.unitPrice}$</Card.Text>
-                <input
-                  type="number"
-                  className="quantityProduct"
-                  min="0"
-                  placeholder={product.quantity}
-                ></input>
-                <Button variant="primary">Add to cart</Button>
-              </Card.Body>
-            </Card>
-          ))}
+          {cart.map(
+            (product) =>
+              product.quantity > 0 && (
+                <Card key={product.productID} style={{ width: "fit-content" }}>
+                  <Card.Img
+                    variant="top"
+                    src={product.image1}
+                    alt={product.name}
+                    className="productCategoryImg"
+                  />
+                  <Card.Body>
+                    <Link to={`/products/${product.productID}`}>
+                      <Card.Title>{product.name}</Card.Title>
+                    </Link>
+                    <Card.Text>Price: {product.unitPrice}$</Card.Text>
+                    <Button
+                      variant="success"
+                      className="changeAmount"
+                      onClick={() => {
+                        decreaseAmount(product);
+                      }}
+                    >
+                      -
+                    </Button>
+                    <input
+                      type="number"
+                      className="quantityProduct"
+                      readOnly="readonly"
+                      value={product.quantity}
+                    ></input>
+                    <Button
+                      variant="success"
+                      className="changeAmount"
+                      onClick={() => {
+                        increaseAmount(product);
+                      }}
+                    >
+                      +
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        deleteFromCart(product);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </Card.Body>
+                </Card>
+              )
+          )}
+          <Stack gap={2} className="col-md-5 mx-auto">
+            <Button variant="outline-dark" disabled>
+              Total: {total()}$
+            </Button>
+            <Button variant="info" onClick={() => setLgShow(true)}>
+              Checkout
+            </Button>
+          </Stack>
+          <Modal
+            size="lg"
+            show={lgShow}
+            onHide={() => setLgShow(false)}
+            aria-labelledby="example-modal-sizes-title-lg"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-lg">
+                Total summary
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {cart.map(
+                (product) =>
+                  product.quantity > 0 && (
+                    <div key={(product.product, product.quantity)}>
+                      {product.quantity} {product.name}s, ({" "}
+                      {product.quantity * product.unitPrice}$)
+                    </div>
+                  )
+              )}
+              <br></br>
+              <h5>
+                Total: {total()}$ <Button>Confirm</Button>
+              </h5>
+            </Modal.Body>
+          </Modal>
         </div>
       )}
     </div>
