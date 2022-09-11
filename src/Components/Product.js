@@ -21,7 +21,6 @@ function Product(params) {
           className="quantityProduct"
           defaultValue={product.quantity}
         ></input>
-        {!hideButton && <Button variant="primary">Delete</Button>}
       </Card.Body>
     </Card>
   );

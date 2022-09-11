@@ -10,7 +10,7 @@ function Homepage() {
 
   const getDataCallback = useCallback(getData, []);
 
-  async function getData(id) {
+  async function getData() {
     setProducts(await getBestSellers());
     setCategories(await getCategories());
     setLoading(false);
@@ -35,11 +35,12 @@ function Homepage() {
             <br />
             <br />
             <p className="textTitle">Welcome to MamiMevi !</p>
+            <p className="textTitle">Inspired by Rami Levi </p>
+            <br />
             <br />
             <p className="textTitle">Buy online the products you need,</p>
-            <br />
             <p className="textTitle">FAST & EASY & SAFE</p>
-            <br />
+            <p className="textTitle">(Trust me)</p>
             <br />
           </h2>
           <Container id="categoriesContainer">
@@ -80,6 +81,13 @@ function Homepage() {
               </div>
             }
           </Container>
+          <p>
+            <br />
+            <br />
+            <br />
+            <br />
+            This is the best site ever trust me!
+          </p>
         </div>
       )}
     </div>

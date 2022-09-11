@@ -24,6 +24,10 @@ function ProductDetails() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function createURL(category) {
+    return "http://localhost:3000/category/" + category.categoryID;
+  }
+
   return (
     <div>
       {loading ? (
@@ -107,6 +111,11 @@ function ProductDetails() {
                           <li>Shape: {product[0].shape}</li>
                           <li>Color: {product[0].color}</li>
                           <li>Category: {currentCategory[0].categoryName}</li>
+                          <li>{product[0].unitInStock} In stock.</li>
+                          <br />
+                          <a href={createURL(currentCategory[0])}>
+                            <h6>Go to item Category page</h6>
+                          </a>
                         </ul>
                       </li>
                     </ul>

@@ -322,3 +322,11 @@ export const checkLogin = (username, password) => {
 export const Logout = () => {
   document.cookie = `id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
 };
+
+export const signup = (customer) => {
+  return fetch(`http://localhost:4000/api/users/create`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(customer),
+  });
+};

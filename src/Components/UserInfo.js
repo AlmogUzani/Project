@@ -18,6 +18,11 @@ function UserInfo() {
     getDataCallback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function ops() {
+    alert("Ops");
+  }
+
   return (
     <div id="userInfo">
       {loading ? (
@@ -35,7 +40,9 @@ function UserInfo() {
                 Email: {user[0].email}
                 <br />
               </Card.Text>
-              <Button variant="primary">Edit</Button>
+              <Button variant="primary" onClick={ops}>
+                Edit
+              </Button>
             </Card.Body>
           </Card>
         </Container>

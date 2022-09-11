@@ -9,9 +9,11 @@ export function getCookie(cname) {
   let ca = decodedCookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
+    /* eslint eqeqeq: 0 */
     while (c.charAt(0) == " ") {
       c = c.substring(1);
     }
+    /* eslint eqeqeq: 0 */
     if (c.indexOf(name) == 0) {
       return JSON.parse(c.substring(name.length, c.length));
     }

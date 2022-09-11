@@ -27,7 +27,6 @@ function Login() {
   });
 
   const validationHandler = (e) => {
-    console.log(e.target.name, e.target.value);
     const name = e.target.name;
     const value = e.target.value;
     const current = loginForm[name];

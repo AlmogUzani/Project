@@ -2,35 +2,14 @@ import { Link } from "react-router-dom";
 import { Logout } from "../DAL/api";
 import { useEffect, useState, useCallback } from "react";
 import { getCategories } from "../DAL/api";
-
-function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  let expires = "expires=" + d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+import { getCookie } from "./Cart";
 
 function Navbar() {
   const [categories, setCategories] = useState([]);
 
   const getDataCallback = useCallback(getData, []);
 
-  async function getData(id) {
+  async function getData() {
     setCategories(await getCategories());
   }
 
@@ -86,7 +65,13 @@ function Navbar() {
               <li>&nbsp;&nbsp;</li>
               {getCookie("id") === "" && (
                 <li className="nav-item">
-                  <Link to="/login">Login</Link>
+                  &nbsp;&nbsp;&nbsp;
+                  <Link to="/login">Login</Link>&nbsp;&nbsp;&nbsp;
+                </li>
+              )}
+              {getCookie("id") === "" && (
+                <li className="nav-item">
+                  <Link to="/registration">Register</Link>
                 </li>
               )}
               {getCookie("id") !== "" && (
@@ -122,7 +107,7 @@ function Navbar() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <a href="" onClick={Logout}>
+                        <a href="http://localhost:3000/" onClick={Logout}>
                           Log out
                         </a>
                       </li>

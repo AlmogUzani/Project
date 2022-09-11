@@ -3,7 +3,6 @@ import {
   getProductsByCategory,
   getCategoriesById,
   getCartByUserCookie,
-  updateCart,
   addTOCart,
 } from "../DAL/api";
 import { useEffect, useState, useCallback } from "react";
@@ -12,6 +11,7 @@ import { getCookie } from "./Cart";
 
 function Category() {
   const params = useParams();
+  // eslint-disable-next-line no-unused-vars
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
@@ -46,12 +46,21 @@ function Category() {
   };
 
   const addToCart = async (product) => {
-    await addTOCart(
-      userID,
-      product,
+    if (
+      product.unitInStock >=
       Number(document.getElementById(product.productID).value)
-    );
-    setCart(await getCartByUserCookie(userID));
+    ) {
+      await addTOCart(
+        userID,
+        product,
+        Number(document.getElementById(product.productID).value)
+      );
+      setCart(await getCartByUserCookie(userID));
+      alert("Added to cart");
+      document.location.reload();
+    } else {
+      alert("cannot");
+    }
   };
   return (
     <div>
@@ -72,6 +81,8 @@ function Category() {
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text>
                   Price: {product.price}$<br />
+                  {product.unitInStock} left.
+                  <br />
                   <Link to={`/products/${product.productID}`}>
                     More details
                   </Link>
@@ -90,6 +101,7 @@ function Category() {
                   type="number"
                   className="quantityProduct"
                   readOnly="readonly"
+                  defaultValue="0"
                 ></input>
                 <Button
                   variant="success"

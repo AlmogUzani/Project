@@ -1,243 +1,66 @@
 import { useState } from "react";
-import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
-import {
-  FaUserAlt,
-  FaVoicemail,
-  FaUserCircle,
-  FaUnlockAlt,
-} from "react-icons/fa";
-import Validation from "./validation";
+import { Form, Button, Container } from "react-bootstrap";
+import { formData, inputsHandler, validateForm } from "./FormData.js";
+import { useNavigate } from "react-router-dom";
+import InputText from "./InputText.js";
+import { signup } from "../DAL/api";
 
-function Registration() {
-  const [studentForm, setStudenForm] = useState({
-    firstname: {
-      value: "",
-      validation: {
-        required: true,
-        minimumLength: 2,
-      },
-      errors: [],
-    },
-    lastname: {
-      value: "",
-      validation: {
-        required: true,
-        minimumLength: 2,
-      },
-      errors: [],
-    },
-    username: {
-      value: "",
-      validation: {
-        required: true,
-        minimumLength: 2,
-      },
-      errors: [],
-    },
-    email: {
-      value: "",
-      validation: {
-        required: true,
-        // eslint-disable-next-line
-        pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      },
-      errors: [],
-    },
-    password: {
-      value: "",
-      validation: {
-        required: true,
-        minimumLength: 8,
-      },
-      errors: [],
-    },
-    confirmPassword: {
-      value: "",
-      validation: {
-        required: true,
-        minimumLength: 8,
-      },
-      errors: [],
-    },
+function Signup() {
+  const navigate = useNavigate();
+  const [signupData, setSignupData] = useState({
+    username: { ...formData.username },
+    password: { ...formData.password },
+    confirmPassword: { ...formData.confirmPassword },
+    first_name: { ...formData.first_name },
+    last_name: { ...formData.last_name },
+    email: { ...formData.email },
+    phoneNumber: { ...formData.phoneNumber },
+    address: { ...formData.address },
+    age: { ...formData.age },
   });
 
-  const validationHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const current = studentForm[name];
-    current.errors = Validation(name, value, current.validation);
-    setStudenForm({ ...studentForm });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    for (const obj in studentForm) {
-      const current = studentForm[obj];
-      current.errors = Validation(
-        obj,
-        studentForm[obj].value,
-        current.validation
-      );
-      setStudenForm({ ...studentForm });
+  const sendDetails = async (e) => {
+    e.preventDefault();
+    if (!validateForm(setSignupData, signupData)) {
+      const customer = {
+        username: signupData.username.value,
+        password: signupData.password.value,
+        name: signupData.first_name.value + " " + signupData.last_name.value,
+        email: signupData.email.value,
+        phoneNumber: signupData.phoneNumber.value,
+        address: signupData.address.value,
+        age: signupData.age.value,
+      };
+      await signup(customer);
+      navigate("/login");
     }
   };
 
   return (
     <div>
-      <Form noValidate onSubmit={handleSubmit}>
-        <Row className="mb-3" id="Form-header">
-          <h1>Registration</h1>
-        </Row>
-        <Row className="mb-3">
-          {
-            <Form.Group as={Col} md="5" controlId="validationCustomFirstname">
-              <Form.Label>First Name</Form.Label>
-              <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend">
-                  <FaUserAlt />
-                </InputGroup.Text>
-                <Form.Control
-                  name="firstname"
-                  defaultValue={studentForm.firstname.value}
-                  type="text"
-                  placeholder="Enter Firstname"
-                  isInvalid={studentForm.firstname.errors.length}
-                  onBlur={validationHandler}
-                />
-                {studentForm.firstname.errors.map((error, index) => (
-                  <Form.Control.Feedback type="invalid" key={index}>
-                    {error.value}
-                  </Form.Control.Feedback>
-                ))}
-              </InputGroup>
-            </Form.Group>
-          }
-          {
-            <Form.Group as={Col} md="5" controlId="validationCustomLastname">
-              <Form.Label>Last Name</Form.Label>
-              <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend">
-                  <FaUserAlt />
-                </InputGroup.Text>
-                <Form.Control
-                  name="lastname"
-                  defaultValue={studentForm.lastname.value}
-                  type="text"
-                  placeholder="Enter Lastname"
-                  isInvalid={studentForm.lastname.errors.length}
-                  onBlur={validationHandler}
-                />
-                {studentForm.lastname.errors.map((error, index) => (
-                  <Form.Control.Feedback type="invalid" key={index}>
-                    {error.value}
-                  </Form.Control.Feedback>
-                ))}
-              </InputGroup>
-            </Form.Group>
-          }
-        </Row>
-        <Row className="mb-3">
-          {
-            <Form.Group as={Col} md="5" controlId="validationCustomUsername">
-              <Form.Label>Username</Form.Label>
-              <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend">
-                  <FaUserCircle />
-                </InputGroup.Text>
-                <Form.Control
-                  name="username"
-                  defaultValue={studentForm.username.value}
-                  type="text"
-                  placeholder="Enter Username"
-                  isInvalid={studentForm.username.errors.length}
-                  onBlur={validationHandler}
-                />
-                {studentForm.username.errors.map((error, index) => (
-                  <Form.Control.Feedback type="invalid" key={index}>
-                    {error.value}
-                  </Form.Control.Feedback>
-                ))}
-              </InputGroup>
-            </Form.Group>
-          }
-          <Form.Group as={Col} md="5" controlId="validationCustomEmail">
-            <Form.Label>Email</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">
-                <FaVoicemail />
-              </InputGroup.Text>
-              <Form.Control
-                name="email"
-                defaultValue={studentForm.email.value}
-                type="text"
-                placeholder="Enter Email"
-                isInvalid={studentForm.email.errors.length}
-                onBlur={validationHandler}
-              />
-              {studentForm.email.errors.map((error, index) => (
-                <Form.Control.Feedback type="invalid" key={index}>
-                  {error.value}
-                </Form.Control.Feedback>
-              ))}
-            </InputGroup>
-          </Form.Group>
-        </Row>
-        <Row className="mb-4">
-          {
-            <Form.Group as={Col} md="5" controlId="validationCustomPassword">
-              <Form.Label>Password</Form.Label>
-              <InputGroup hasValidation>
-                <InputGroup.Text id="inputGroupPrepend">
-                  <FaUnlockAlt />
-                </InputGroup.Text>
-                <Form.Control
-                  name="password"
-                  defaultValue={studentForm.password.value}
-                  type="password"
-                  placeholder="Enter password"
-                  isInvalid={studentForm.password.errors.length}
-                  onBlur={validationHandler}
-                />
-                {studentForm.password.errors.map((error, index) => (
-                  <Form.Control.Feedback type="invalid" key={index}>
-                    {error.value}
-                  </Form.Control.Feedback>
-                ))}
-              </InputGroup>
-            </Form.Group>
-          }
-          <Form.Group
-            as={Col}
-            md="5"
-            controlId="validationCustomConfirmPassword"
-          >
-            <Form.Label>Confirm password</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">
-                <FaUnlockAlt />
-              </InputGroup.Text>
-              <Form.Control
-                name="confirmPassword"
-                defaultValue={studentForm.confirmPassword.value}
-                type="passsword"
-                placeholder="Enter Password"
-                isInvalid={studentForm.confirmPassword.errors.length}
-                onBlur={validationHandler}
-              />
-              {studentForm.confirmPassword.errors.map((error, index) => (
-                <Form.Control.Feedback type="invalid" key={index}>
-                  {error.value}
-                </Form.Control.Feedback>
-              ))}
-            </InputGroup>
-          </Form.Group>
-        </Row>
-        <Row id="Form-footer">
-          <Button type="submit">Submit</Button>
-        </Row>
-      </Form>
+      <Container id="signupPage">
+        <Container id="signupContainer">
+          <Form className="signupForm">
+            <h1>Signup</h1>
+            <div className="border"></div>
+            <InputText
+              setData={setSignupData}
+              data={signupData}
+              inputsHandler={inputsHandler}
+            ></InputText>
+            <Button
+              onClick={sendDetails}
+              className="submit"
+              variant="primary"
+              type="submit"
+            >
+              Signup
+            </Button>
+          </Form>
+        </Container>
+      </Container>
     </div>
   );
 }
 
-export default Registration;
+export default Signup;
